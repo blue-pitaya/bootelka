@@ -20,10 +20,4 @@ lazy val root = (project in file("."))
       "org.typelevel"   %% "munit-cats-effect-3" % MunitCatsEffectVersion % Test,
       "ch.qos.logback"  %  "logback-classic"     % LogbackVersion         % Runtime,
     ),
-    addCompilerPlugin("org.typelevel" %% "kind-projector"     % "0.13.2" cross CrossVersion.full),
-    addCompilerPlugin("com.olegpy"    %% "better-monadic-for" % "0.3.1"),
-    assembly / assemblyMergeStrategy := {
-      case "module-info.class" => MergeStrategy.discard
-      case x => (assembly / assemblyMergeStrategy).value.apply(x)
-    }
   )

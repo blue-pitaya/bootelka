@@ -1,0 +1,7 @@
+target/
+.bsp
+*.metals
+**/metals.sbt
+ui/sccode/
+node_modules
+ui/dist/
