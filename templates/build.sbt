@@ -83,11 +83,11 @@ lazy val macros = (project in file("macros")).settings(
   libraryDependencies += "org.scala-lang" % "scala-reflect" % scalaVersion.value
 )
 
-lazy val frontend = (project in file("frontend"))
+lazy val web = (project in file("web"))
   .dependsOn(core.js)
   .dependsOn(macros)
   .settings(
-    name := "frontend",
+    name := "web",
     libraryDependencies ++=
       Seq(
         "com.raquo" %%% "laminar" % LaminarVersion,
