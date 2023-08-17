@@ -1,7 +1,6 @@
 package appname.api
 
-import cats.effect.IO
-import cats.effect.IOApp
+import cats.effect._
 
 object Main extends IOApp.Simple {
 

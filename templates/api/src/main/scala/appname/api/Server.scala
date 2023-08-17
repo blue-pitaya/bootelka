@@ -12,8 +12,8 @@ import org.http4s.server.middleware._
 object Server {
 
   def create(): IO[Resource[IO, Unit]] = {
-    val routes: HttpRoutes[IO] = ???
-    // FIXME: unsafe CORS rule
+    val routes: HttpRoutes[IO] = Routes.main
+    // FIXME: unsafe CORS rule for production
     val corsService = CORS.policy.withAllowOriginAll(routes).orNotFound
     val finalHttpApp = Logger.httpApp(true, true)(corsService)
 
