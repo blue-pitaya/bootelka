@@ -12,18 +12,25 @@ import appname.api.auth.persistence.RamBackend
 import appname.api.auth.RandomBytes
 import java.security.SecureRandom
 import appname.api.auth.persistence.PersistenceBackend
+import appname.api.auth.UserRegister
 
 object Server {
 
   private def routes(
       random: RandomBytes,
-      backend: PersistenceBackend
+      backend: PersistenceBackend[IO]
   ): HttpRoutes[IO] = {
     import Routes.dsl._
 
+    val userRegister = new UserRegister(backend, random)
+
     val mainRoutes = Routes.main
-    val authRoutes = AuthService
-      .routes(basePath = Root / "user", backend = backend, random = random)
+    val authRoutes = AuthService.routes(
+      basePath = Root / "user",
+      backend = backend,
+      random = random,
+      handleRegister = userRegister.handle _
+    )
 
     mainRoutes <+> authRoutes
   }

@@ -20,9 +20,10 @@ val MonocleVersion = "3.1.0"
 val LaminarVersion = "16.0.0"
 val WaypointVersion = "7.0.0"
 val LaminarDraggingVersion = "1.1"
-val LaminextVersion = "0.16.0"
+val LaminextVersion = "0.16.2"
 val ScalatestVersion = "3.2.13"
 val Http4sDomVersion = "0.2.9"
+val Password4jVersion = "1.7.1"
 
 lazy val core = crossProject(JSPlatform, JVMPlatform)
   .withoutSuffixFor(JVMPlatform)
@@ -65,8 +66,12 @@ lazy val api = (project in file("api"))
           Test,
         "ch.qos.logback" % "logback-classic" % LogbackVersion % Runtime,
         "dev.optics" %%% "monocle-core" % MonocleVersion,
-        "dev.optics" %%% "monocle-macro" % MonocleVersion
-      )
+        "dev.optics" %%% "monocle-macro" % MonocleVersion,
+        "com.password4j" % "password4j" % Password4jVersion
+      ),
+    addCompilerPlugin(
+      "org.typelevel" %% "kind-projector" % "0.13.2" cross CrossVersion.full
+    )
   )
   .enablePlugins(JavaAppPackaging)
   .enablePlugins(DockerPlugin)
@@ -99,8 +104,8 @@ lazy val web = (project in file("web"))
         "dev.bluepitaya" %%% "laminar-dragging" % LaminarDraggingVersion,
         "org.http4s" %%% "http4s-circe" % Http4sVersion,
         "io.circe" %%% "circe-generic" % CirceVersion,
-        "io.laminext" %%% "websocket" % LaminextVersion,
-        "io.laminext" %%% "websocket-circe" % LaminextVersion,
+        "io.laminext" %%% "fetch-circe" % LaminextVersion,
+        "io.laminext" %%% "fetch" % LaminextVersion,
         "dev.optics" %%% "monocle-core" % MonocleVersion,
         "dev.optics" %%% "monocle-macro" % MonocleVersion,
         "org.http4s" %%% "http4s-client" % Http4sVersion,
